@@ -6,8 +6,14 @@ import Tabs from './Tabs';
 
 const Stack = createStackNavigator();
 
+
+
 export default () => (
-    <Stack.Navigator>
+    <Stack.Navigator
+        screenOptions={{
+            headerShown: false
+        }}
+    >
         <Stack.Screen name="Main" component={Tabs} />
         <Stack.Screen name="Detail" component={Detail} />
     </Stack.Navigator>
