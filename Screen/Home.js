@@ -6,7 +6,7 @@ const Home = ({navigation}) => {
     return (
         <View>
             <Text>
-                AAA
+                Home
             </Text>
             <Button 
                 onPress={() => navigation.navigate("Detail")}

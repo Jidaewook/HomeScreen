@@ -6,7 +6,7 @@ const Setting = () => {
     return (
         <View>
             <Text>
-                AAA
+                Setting
             </Text>
         </View>
     );
