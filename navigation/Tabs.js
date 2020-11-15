@@ -5,6 +5,7 @@ import Save from '../Screen/Save';
 import Setting from '../Screen/Setting';
 import {Ionicons} from '@expo/vector-icons';
 import {Platform} from 'react-native';
+import NoticeStack from "../navigation/NoticeStack";
 
 const Tabs = createBottomTabNavigator();
 

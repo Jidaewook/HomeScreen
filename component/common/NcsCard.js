@@ -1,12 +1,20 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {apiImage} from '../../api';
+import {useNavigation} from '@react-navigation/native';
 
-const NcsCard = ({src, description}) => {
+
+const NcsCard = ({src, title}) => {
+
+    // const navigation = useNavigation();
+
+    // const goToDetail = () => 
+    // navigation.navigate("Detail");
+
     return (
         <View style={{
             flexDirection:"row",
-            height:60,
+            height:100,
             width:240,
             backgroundColor:"#fff",
             elevation:2,
@@ -20,7 +28,7 @@ const NcsCard = ({src, description}) => {
             <Image
              source={{uri: apiImage(src)}}
              style={{
-                 height:50,
+                 height:80,
                  width:60,
                  borderRadius:10
              }}
@@ -34,35 +42,14 @@ const NcsCard = ({src, description}) => {
             height:"100%"
         }}>
             <Text style={{
-                fontSize:8,
+                fontSize:12,
                 fontWeight:"600",
 
             }}>
-                {description}
+                {title}
             </Text>
-            <Text style={{
-                fontSize:11,
-                fontWeight:"bold",
-            }}>
-                454.69
-            </Text>
-
         </View>
-        <View style={{
-            width:"5%",
-            justifyContent:"flex-end",
-            height:"100%"
-        }}>
-            <Image
-             source={require('../../images/add.png')}
-             style={{
-                 height:17,
-                 width:17
-             }}
-            />
-        </View>
-
-        </View>
+    </View>
     );
 };
 

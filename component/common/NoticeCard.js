@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import { apiImage } from '../../api';
+import Likes from './Likes';
 
 
 const NoticeCard = ({onPress, src, name, desc}) => {
@@ -11,21 +12,21 @@ const NoticeCard = ({onPress, src, name, desc}) => {
              style={{
                  marginTop:10,
                  backgroundColor:"#FFF",
-                 height:250,
+                 height:230,
                  width:200,
                  elevation:2,
                  borderRadius:20,
                  padding:15,
                  marginRight:5,
-                 marginLeft:-10,
-                 marginBottom:5
+                 marginLeft:2,
+                 marginBottom:5            
              }}
             >
                 <Image
                 source={{uri: apiImage(src)}}
                 style={{
-                    width:170,
-                    height:110,
+                    width:175,
+                    height:115,
                     borderRadius:20
                 }}
                 />
@@ -75,25 +76,14 @@ const NoticeCard = ({onPress, src, name, desc}) => {
                      width:"100%"
                  }}>
                      <View style={{
-                         width:"80%"
+                         width:"95%", alignItems: 'flex-end'
                      }}>
-                         <Text style={{
-                             fontSize:15,
-                             fontWeight:"bold"
-                         }}>324.69 USD</Text>
+                         <Likes 
+                            likes={"25"}
+                            
+                        />
                      </View>
-                     <View style={{
-                         width:"20%"
-                     }}>
-                         <Image
-                          source={require('../../images/add.png')}
-                          style={{
-                              alignSelf:"flex-end",
-                              width:25,
-                              height:25
-                          }}
-                         />
-                     </View>
+                     
                  </View>
                 
             </TouchableOpacity>

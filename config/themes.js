@@ -1,5 +1,10 @@
 const colors={
-    main: "#fff"
+    main: '#fff',
+    basic: "#d1fff3",
+    view: '#90a6a0',
+    theme: '#30e682', 
+    search: '#fff', 
+    title: '#a8e0d1'
 }
 
 export default {colors};

@@ -7,20 +7,22 @@ const PsatCard = ({title, desc, src}) => {
         <ImageBackground
            source={{uri: apiImage(src)}}
            style={{
-               height:130,
-               width:230,
-               marginRight:20,
-               borderRadius:10,
-               marginBottom:40,
-               opacity:0.7,
-               backgroundColor:"#000",
-               marginLeft:3,
-               padding:12,
-               marginTop:20
+           height:130,
+           width:240,
+           borderRadius:10,
+           opacity:0.7,
+           backgroundColor:"gray",
+           elevation:2,
+           padding:6,
+           marginVertical:5,
+           marginRight:1,
+           marginLeft:20,
+
+            
            }}
-           >
+        >
                <Text style={{
-                   fontWeight:"bold",
+                   fontWeight:"700",
                    color:"black",
                    fontSize:15
                }}>
@@ -28,8 +30,9 @@ const PsatCard = ({title, desc, src}) => {
                </Text>
                <Text style={{
                    fontWeight:"bold",
-                   color:"red",
-                   fontSize:12
+                   color:"black",
+                   fontSize: 12,
+                   marginTop: 10
                }}>
                    {desc}
                </Text>

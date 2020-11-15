@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const makeRequest = (path) => 
-    // axios.get(`https://pure-retreat-35508.herokuapp.com${path}`);
-    axios.get(`http://localhost:1337${path}`)
+    axios.get(`https://hidden-earth-75958.herokuapp.com${path}`)
 
 const getAnything = async (path, params = {}) => {
     try{
@@ -41,4 +40,4 @@ export const noticeApi = {
 //     pageDetail: id => getAnything(`/profile/${id}`)
 // };
 
-export const apiImage = path => `http://localhost:1337${path}`;
+export const apiImage = path => `https://hidden-earth-75958.herokuapp.com${path}`;
