@@ -7,4 +7,6 @@ const colors={
     title: '#a8e0d1'
 }
 
+
+
 export default {colors};

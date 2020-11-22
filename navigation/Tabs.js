@@ -3,6 +3,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../Screen/Home';
 import Save from '../Screen/Save';
 import Setting from '../Screen/Setting';
+import Stack from './Stack';
+import ProfileStack from '../navigation/ProfileStack';
 import {Ionicons} from '@expo/vector-icons';
 import {Platform} from 'react-native';
 import NoticeStack from "../navigation/NoticeStack";
@@ -29,7 +31,7 @@ export default ({navigation, route}) => {
                         iconName += "home";
                     } else if (route.name === "Save") {
                         iconName += "save";
-                    } else if (route.name === "Setting") {
+                    } else if (route.name === "Profile") {
                         iconName += "settings"
                     }
                     return (
@@ -45,13 +47,15 @@ export default ({navigation, route}) => {
                 showLabel: false
             }}
         >
+            <Tabs.Screen name="Profile" component={ProfileStack} />
+
             <Tabs.Screen 
                 name="Home" 
                 component={Home} 
                 
             />
             <Tabs.Screen name="Save" component={Save} />
-            <Tabs.Screen name="Setting" component={Setting} />
+            {/* <Tabs.Screen name="Profile" component={Profile} /> */}
         </Tabs.Navigator>
     )
 }

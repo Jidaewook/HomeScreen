@@ -4,6 +4,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 
 const DetailCard = (title, src, desc) => {
     return (
+    <>
         <View
             style={styles.SlideFrame}
         >
@@ -12,9 +13,11 @@ const DetailCard = (title, src, desc) => {
                     source={require('../../assets/adaptive-icon.png')}
                     style={styles.SlideImage}
                 />
+                
             </View>
             
         </View>
+    </>    
     );
 };
 

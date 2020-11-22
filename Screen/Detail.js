@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View, Image, Text, StatusBar, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Button} from "react-native";
 import YoutubePlayer from 'react-native-youtube-iframe';
+import {useNavigation} from '@react-navigation/native';
+
 
 import Slide from '../component/common/Slide';
 import Category from '../component/common/Category';
@@ -23,8 +25,27 @@ const Detail = ({route: {params: {id}}}) => {
         dataError: null
     });
 
+    const [lectures, setLectures] = useState({
+        loading: true,
+        ncs: [],
+        psat: [],
+        ncsError: null,
+        psatError: null
+    })
+
     const getData = async () => {
         const [data, dataError] = await noticeApi.noticeDetail(id)
+        const [ncs, ncsError] = await lectureApi.ncs();
+        const [psat, psatError] = await lectureApi.psat();
+
+        setLectures({
+            loading: false,
+            ncs,
+            ncsError,
+            psat,
+            psatError
+        });
+
         setResult({
             data, dataError
         })
@@ -35,6 +56,12 @@ const Detail = ({route: {params: {id}}}) => {
         getData()
     }, {})
 
+    const navigation = useNavigation();
+    const goToDetail = (id) => {
+        console.log("ID", id)
+        navigation.navigate("Detail", {id})
+    };
+
     return (
     <>   
         <View
@@ -44,7 +71,7 @@ const Detail = ({route: {params: {id}}}) => {
             <YoutubePlayer 
                 height={HEIGHT/3}
                 width={WIDTH}
-                play={true}
+                play={false}
                 videoId={result.data.url}
 
             />
@@ -89,60 +116,28 @@ const Detail = ({route: {params: {id}}}) => {
             <Text
                 style={{marginTop: 40, paddingLeft: 20, paddingRight: 20, fontWeight: 'bold'}}
             >
-                이어지는 영상
+                PSAT기출해설
             </Text>
             <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     style={{backgroundColor: '#fff', paddingLeft: 20, paddingRight: 20}}
-            >   
-            <DetailCard
-            />
+            >
+                {lectures.psat.map(item => (
+                    <DetailCard
+                        onPress={() => goToDetail(item.id)}
+                                
+                        name={item.title}
+                        src={item.thumbnail[0].url}
+                        desc={item.desc}
+                    />
+                ))}   
+            
             
             </ScrollView>
         </ScrollView>
                  
-    </>
-        // {/* //     <View>
-        // //         <View
-        // //             style={styles.ViewContainer}
-        // //             // style={{width: '100%'}}
-        // //         >
-        // //             <View
-        // //                 style={styles.ViewBox}
-        // //             >
-        // //                 <Title title={result.data.title} />
-        // //                 <Category 
-        // //                     cate={result.data.tag} 
-        // //                 />
-        // //              </View>
-        // //              <View
-        // //             style={styles.ViewSetting}
-        // //             // style={{alignSelf: 'flex-end', marginRight: 10, marginTop: 5}}    
-        // //         >
-        // //             <Likes 
-        // //                 likes={"25"}
-        // //             />
-        // //             <Count 
-        // //                 count={"20"}
-        // //             />
-        // //         </View>
-        // //         </View>
-                
-        // //         <View>
-        // //             <Desc
-        // //                 desc={result.data.desc}
-        // //             />
-        // //         </View>
-        // //         <ScrollView
-        // //             horizontal
-        // //             showsHorizontalScrollIndicator={false}
-        // //         >   
-        // //             <DetailCard
-        // //             />
-        // //     </ScrollView>
-        // //     </View> */}
-            
+    </> 
     );
 };
 
