@@ -2,17 +2,22 @@ import React, {useState} from 'react';
 import { 
     View, Text, TouchableHighlight, TouchableWithoutFeedback, Switch
 } from 'react-native';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import {useNavigation} from '@react-navigation/native';
+import { AntDesign } from '@expo/vector-icons';
 
-import {EvilIcons, MaterialIcons} from '@expo/vector-icons';
+
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import styled from 'styled-components';
 import themes from '../../config/themes';
+import Agreement from '../../Screen/ProfileDetail/Agreement';
+import Profile from '../../Screen/Profile';
+import ToggleSwitch from '../../Screen/ProfileDetail/ToggleSwitch';
 
 const Container = styled.View`
     background-color: white;
     flex-direction: row;
     align-items: center;
-    padding: 20px;
+    padding-left: 20px;
     ${Platform.select({
         ios: {
             fontFamily: "Avenir",
@@ -70,6 +75,12 @@ const Icon = styled.Image`
 
 const ProfileContainer = styled.View`
     flex: 1;
+    flex-direction: row;
+`;
+
+const ProfileContainerList = styled.View`
+    flex: 1;
+    /* flex-direction: row; */
 `;
 
 const FirstLine = styled.View`
@@ -78,15 +89,36 @@ const FirstLine = styled.View`
 `;
 
 const ProfileTitle = styled.Text`
-    font-size: 16px;
+    font-size: 14px;
     color: ${themes.colors.view};
     margin-bottom: 6px;
+    font-weight: 600;
+    margin-left: 10;
+    margin-bottom: 25;
+    align-items: center;
+    justify-content: center;
+`;
+
+
+const ProfileTitleList = styled.Text`
+    font-size: 14px;
+    width: 85%;
+    color: ${themes.colors.view};
+    margin-bottom: 6px;
+    font-weight: 600;
+    margin-left: 10;
+    margin-bottom: 25;
+    align-items: center;
+    justify-content: center;
 `;
 
 const ProfileSubTitle = styled.Text`
     font-size: 13px;
     color: ${themes.colors.view};
+    align-items: center;
+    width: 30%;
 `;
+
 
 export const ListItem = ({
     RightActions,
@@ -102,11 +134,13 @@ export const ListItem = ({
             
         >
             <TouchableHighlight
-                underlayColor={themes.colors.view} onPress={onPress}
+                underlayColor={themes.colors.view} 
+                onPress={onPress}
+                
             >
                 <Container>
                     {image && <Avatar source={image} /> }
-                    <ProfileContainer>
+                    <ProfileContainerList>
                         <ProfileTitle>{title}</ProfileTitle>
                         {subtitle && (
                             <ProfileSubTitle 
@@ -115,8 +149,7 @@ export const ListItem = ({
                                 {subtitle}
                             </ProfileSubTitle>
                         )}
-                    </ProfileContainer>
-                    {/* {arrow && <EvilIcons name={arrow} size={20} />} */}
+                    </ProfileContainerList>
                 </Container>
             </TouchableHighlight>
 
@@ -125,7 +158,7 @@ export const ListItem = ({
 };
 
 export const SingleItem = ({
-    onPress, title, subTitle
+    onPress, title, subTitle, icon
 }) => {
 
     return (
@@ -133,47 +166,51 @@ export const SingleItem = ({
             underlayColor={themes.colors.view}
             onPress={onPress}
         >
-            <Container>
                 <SingleContainer>
                     <ProfileContainer>
-                        <ProfileTitle>
+                        <ProfileTitleList>
                             {title}
-                        </ProfileTitle>
+                        </ProfileTitleList>
                         {subTitle && <ProfileSubTitle>{subTitle}</ProfileSubTitle>}
-                    </ProfileContainer>
-                                  
+                        <AntDesign 
+                            name={icon}
+                            size={22}
+                            color={themes.colors.view}
+                        />
+                    </ProfileContainer>            
                 </SingleContainer>
-            </Container>
             
         </TouchableHighlight>
     );
 }
 
 export const ToggleList = ({
-    title, subTitle, onPress, toggleSwitch, toggleValue
+    title, subTitle, onPress, toggleSwitch, toggleValue, isEnabled
 }) => {
+
+
     return (
         <TouchableHighlight
             underlayColor={themes.colors.view}
             onPress={onPress}
         >
-            <Container>
-                <SingleContainer>
-                    <ProfileContainer>
-                        <ProfileTitle>
-                            {title}
-                        </ProfileTitle>
-                        {subTitle && <ProfileSubTitle>{subTitle}</ProfileSubTitle>}
-                    </ProfileContainer>
-                    <Switch 
-                        trackColor={{ false: 'black', true: '#fff'}}
-                        thumbColor={isEnabled ? 'red' : 'blue'}
-                        onValueChange={toggleSwitch}
-                        value={toggleValue}
-                    />  
-                </SingleContainer>
-            </Container>
-            
+            <SingleContainer>
+                <ProfileContainer>
+                    <ProfileTitle>
+                        {title}
+                    </ProfileTitle>
+                    {subTitle && <ProfileSubTitle>{subTitle}</ProfileSubTitle>}
+                </ProfileContainer>
+                
+                <Switch 
+                    trackColor={{ false: 'black', true: '#fff'}}
+                    thumbColor={isEnabled ? 'red' : 'blue'}
+                    onValueChange={toggleSwitch}
+                    value={toggleValue}
+                /> 
+            </SingleContainer>
+
+             
         </TouchableHighlight>
     )
 }

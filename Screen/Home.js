@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Button, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Button, Modal, StyleSheet, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {TextInput, ScrollView} from 'react-native-gesture-handler';
 import themes from '../config/themes';
 import {SimpleLineIcons, Octicons, MaterialCommunityIcons} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import {SearchInput, SearchTap} from '../component/common/Search';
 
 import NoticeCard from '../component/common/NoticeCard';
 import NcsCard from '../component/common/NcsCard';
@@ -16,7 +17,6 @@ import {lectureApi, noticeApi} from '../api';
 const Home = ({}) => {
 
     const [lectures, setLectures] = useState({
-        loading: true,
         ncs: [],
         psat: [],
         ncsError: null,
@@ -24,10 +24,11 @@ const Home = ({}) => {
     });
 
     const [notices, setNotices] = useState({
-        loading: true,
         notice: [],
         noticeError: null
     })
+
+    const [loading, setLoading] = useState(true);
 
     const getData = async () => {
         const [ncs, ncsError] = await lectureApi.ncs();
@@ -35,7 +36,6 @@ const Home = ({}) => {
         const [notice, noticeError] = await noticeApi.notice(); 
 
         setLectures({
-            loading: false,
             ncs,
             ncsError,
             psat,
@@ -43,10 +43,11 @@ const Home = ({}) => {
         });
 
         setNotices({
-            loading: false,
             notice,
             noticeError
-        })
+        });
+
+        setLoading(false);
 
     };
 
@@ -60,12 +61,27 @@ const Home = ({}) => {
         navigation.navigate("Detail", {id})
     };
 
+    const [modal, setModal] = useState(false);
+
     return (
-        
         <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.ScrollContainter}
         >
+            <Modal
+                animationType="slide"
+                visible={modal}
+                onRequestClose={() => setModal(false)}
+            >
+                <View>
+                    <Button 
+                        onPress={() => setModal(false)}
+                        title="I understand"
+                    />
+                </View>
+            </Modal>
+            {loading ? <ActivityIndicator /> : (
+        <>
             <View style={styles.ViewContainer}>
                 <View style={styles.ViewBox}>
                     <Text style={styles.TitleFont}>
@@ -88,25 +104,36 @@ const Home = ({}) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.SearchView}>
-                    <View style={styles.SearchBar}>
-                        <Octicons 
-                            name="search"
-                            size={22}
-                        />
-                        <TextInput 
-                            placeholder={"Search the Class..."}
-                            style={styles.SearchInput}
-                        />
+            <TouchableOpacity 
+                style={styles.SearchView}
+                onPress={() => {setModal(true)}}
+            >
+                <SearchTap 
+                    placeholder={"Search..."}
+                    icon={"search"}
+                    size={20}
+                    setSearch={() => setModal(true)}
+                />
+                {/* <View style={styles.SearchBar}>
+                    <Octicons 
+                        name="search"
+                        size={22}
+                    />
+                        
                         <View style={styles.ViewSort}>
-                            <MaterialCommunityIcons
+                            {/* <Text
+                                style={styles.SearchInput}
+                            />
+                                123123
+                            </Text> */}
+                            {/* <MaterialCommunityIcons
                                 name="sort"
                                 size={22}
                                 style={styles.IconSort}
                             />
                         </View>
-                    </View>
-            </View>
+                </View> */} 
+            </TouchableOpacity>
             <View style={{flex: 1, flexDirection: 'row'}}>
             <ContentTitle 
                 title={"NOTICE"}
@@ -130,6 +157,7 @@ const Home = ({}) => {
                         />
                 ))}
             </ScrollView>
+            
             <View style={{flex: 1, flexDirection: 'row', marginTop: 20}}>
                 <ContentTitle 
                     title={"NCS Class"}
@@ -164,6 +192,9 @@ const Home = ({}) => {
                 ))}
             </ScrollView>
             
+                </>
+            )}
+
         </ScrollView>
     );
 };

@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {View, SectionList, StatusBar, ScrollView, Text, Modal, Button} from 'react-native';
+import {ActivityIndicator ,View, SectionList, StatusBar, ScrollView, Text, Modal, Button, StyleSheet, Switch, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
 import {SimpleLineIcons, Octicons, MaterialCommunityIcons} from '@expo/vector-icons';
 import themes from '../config/themes';
 import {ListItem, SingleItem, ToggleList} from '../component/common/ListItem';
 import Slide from '../component/common/Slide';
-
+import ProfilePage from './ProfileDetail/ProfilePage';
+import SettingSection from '../component/common/SettingSection';
 
 const Common = styled.SafeAreaView`
   background-color: white;
@@ -27,7 +28,7 @@ const HLine = styled.View`
   width: 90%;
   margin: 0 auto;
   height: 1px;
-  background-color: ${'#fff'};
+  background-color: ${'lightgray'};
 `;
 
 const MenuItem = [
@@ -45,14 +46,6 @@ const MenuItem = [
         ]
     },
     {
-        title: '알림설정',
-        data: [
-            {title: '공지수신'},
-            {title: '학습알람'},
-            {title: '푸시설정'}
-        ]
-    },
-    {
         title: '고객센터/도움말',
         data: [
             {title: '고객센터/도움말', icon: 'mail', screen: 'SendMessage'}
@@ -63,26 +56,35 @@ const MenuItem = [
 const Profile = () => {
 
     const navigation = useNavigation();
+    const ProfilePage = () => {
+      navigation.navigate("ProfilePage")
+    };
     const [modal, setModal] = useState(false);
+
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+
     const renderTermService = () => {
         return (
-            <Modal
-                animationType="slide"
-                visible={modal}
-                onRequestClose={() => setModal(false)}
-            >
-        <Text 
-            style={{fontSize: 24, fontWeight: '600', marginTop: 30, marginLeft: 20}}
+          
+        <Modal
+            animationType="slide"
+            visible={modal}
+            onRequestClose={() => setModal(false)}
         >
+          <Text 
+              style={{fontSize: 24, fontWeight: '600', marginTop: 30, marginLeft: 20}}
+          >
             Terms of Service
           </Text>
 
-          <ScrollView style={{ marginVertical: 10 }}>
+          <ScrollView style={styles.Scroll}>
             <Text
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               1. Your use of the Service is at your sole risk. The service is
               provided on an "as is" and "as available" basis.
@@ -91,7 +93,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               2. Support for Expo services is only available in English, via
               e-mail.
@@ -100,7 +102,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               3. You understand that Expo uses third-party vendors and hosting
               partners to provide the necessary hardware, software, networking,
@@ -110,7 +112,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               4. You must not modify, adapt or hack the Service or modify
               another website so as to falsely imply that it is associated with
@@ -120,7 +122,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               5. You may use the Expo Pages static hosting service solely as
               permitted and intended to host your organization pages, personal
@@ -133,7 +135,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               6. You agree not to reproduce, duplicate, copy, sell, resell or
               exploit any portion of the Service, use of the Service, or access
@@ -143,7 +145,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               7. We may, but have no obligation to, remove Content and Accounts
               containing Content that we determine in our sole discretion are
@@ -155,7 +157,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               8. Verbal, physical, written or other abuse (including threats of
               abuse or retribution) of any Expo customer, employee, member, or
@@ -165,7 +167,7 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               9. You understand that the technical processing and transmission
               of the Service, including your Content, may be transferred
@@ -177,11 +179,12 @@ const Profile = () => {
               caption
               gray
               height={24}
-              style={{ marginBottom: 10 }}
+              style={styles.Terms}
             >
               10. You must not upload, post, host, or transmit unsolicited
               e-mail, SMSs, or "spam" messages.
             </Text>
+          
           </ScrollView>
                 <View>
                     <Button 
@@ -189,7 +192,7 @@ const Profile = () => {
                         title="I understand"
                     />
                 </View>
-            </Modal>
+        </Modal>
         );
     }
 
@@ -203,42 +206,66 @@ const Profile = () => {
                     <SectionList 
                         contentContainerStyle={{paddingVertical: 40}}
                         ListHeaderComponent={
+                          
                             <ListItem 
                                 title="JD"
                                 subtitle="View Profile"
                                 image={require("../images/13.png")}
+                                onPress={() => {ProfilePage()}}
                             />
                         }
-                        sections={MenuItem}
-                        keyExtractor={(item, index) => item + index}
-                        renderSectionHeader={({section: {title}}) => (
-                            <View
-                                style={{marginLeft: 20, marginTop: 30, marginBottom: 10}}
-                            >
-                                <Text
-                                    style={{color: themes.colors.title}}
-                                >{title}</Text>
-                            </View>
-                        )}
-                        stickySectionHeadersEnabled={false}
-                        renderItem={({item}) => (
-                            
-                            // { item[1] ? (
-                            //     <ToggleList 
-                            //         title={item.title}
-                            //     >
-                            // ) : (
-                                <SingleItem 
-                                    title={item.title}
-                                    icon={item.icon}
-                                    iconcolor={themes.colors.main}
-                                    onPress={() => setModal(true) }
-                                />
-                            // )}
-                            
-                        )}
                         ItemSeparatorComponent={() => <HLine />}
                     />
+                    
+                    <SettingSection
+                      title={"서비스 정보"}
+                      
+                    >
+                      <SingleItem   
+                        title={"버전정보"}
+                        subTitle={"1.0.0"}
+                      />
+                    </SettingSection>
+                    <HLine />
+                    <SettingSection
+                      title={"개인 정보"}
+                      
+                    >
+                      <SingleItem   
+                        title={"계정정보"}
+                        onPress={() => {ProfilePage()}}
+                      />
+                      <SingleItem   
+                        title={"서비스 이용약관"}
+                        onPress={() => {setModal(true)}}
+                      />
+                    </SettingSection>
+                    <SettingSection
+                      title={"알람설정"}
+                      
+                    >
+                      <ToggleList 
+                        title={"공지수신"}
+                      />
+                      <ToggleList 
+                        title={"학습알람"}
+                      />
+                      <ToggleList 
+                        title={"푸시알림"}
+                      />
+                    </SettingSection>
+                    <SettingSection
+                      title={"고객센터/도움말"}
+                      
+                    >
+                      <SingleItem   
+                        title={"고객센터/도움말"}
+                        icon={"mail"}
+                        // 누르면 고객센터페이지
+                        onPress={() => alert("MAIL")}
+                      />
+                    </SettingSection>
+
                     {modal ? (renderTermService()) : (null)}
                 </Container>
             </Common>
@@ -247,3 +274,17 @@ const Profile = () => {
 };
 
 export default Profile;
+
+const styles = StyleSheet.create({
+  Terms: {
+    marginBottom: 10, 
+    marginLeft: 10, 
+    marginRight: 10,
+    textDecorationStyle: 'solid',
+    
+  },
+  Scroll: {
+    marginVertical: 10, 
+    backgroundColor: '#1231'
+  }
+})

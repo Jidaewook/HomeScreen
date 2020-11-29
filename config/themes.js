@@ -4,7 +4,10 @@ const colors={
     view: '#90a6a0',
     theme: '#30e682', 
     search: '#fff', 
-    title: '#a8e0d1'
+    title: '#a8e0d1',
+    black: 'black',
+    lightgray: 'lightgray',
+    gray: 'gray'
 }
 
 

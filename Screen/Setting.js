@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Switch} from 'react-native';
+import {ActivityIndicator, View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Switch} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SimpleLineIcons, Octicons, MaterialCommunityIcons} from '@expo/vector-icons';
 
@@ -24,6 +24,8 @@ const Setting = () => {
         showsVerticalScrollIndicator={false}
         style={styles.ScrollContainter}
     >
+        <ActivityIndicator />
+
         <View style={styles.ViewContainer}>
             <View style={styles.ViewBox}>
                 <Text style={styles.TitleFont}>
