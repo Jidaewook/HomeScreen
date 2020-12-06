@@ -4,8 +4,9 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
-// import About from '../components/About';
 import { useNavigation } from '@react-navigation/native';
+
+import GoBack from '../../component/common/GoBack';
 
 
 const ProfilePage = () => {
@@ -32,11 +33,8 @@ const ProfilePage = () => {
                 quality: 1,
             });
             if(!result.cancelled) {
-                // console.log(result.url);
             }
-            // console.log(result); 
         } catch (E) {
-            // console.log(E);
         }
     };
 
@@ -51,7 +49,9 @@ const ProfilePage = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-
+                <GoBack 
+                    icon={"caretleft"}
+                />
                 <View style={{ alignSelf: "center" }}>
                     <View style={styles.profileImage}>
                         <Image source={require("../../assets/splash.png")} style={styles.image} resizeMode="center"></Image>
@@ -89,7 +89,6 @@ const ProfilePage = () => {
                         <Text style={[styles.text, styles.subText]}>Following</Text>
                     </View>
                 </View>
-                <About />
 
                 <View style={{ marginTop: 32 }}>
                     <ScrollView

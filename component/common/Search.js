@@ -36,6 +36,8 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
   padding: 10px;
+  margin-left: -60;
+  margin-right: -60;
 `;
 
 const SearchArea = styled.View`
@@ -50,10 +52,11 @@ const SearchArea = styled.View`
 const InputArea = styled.View`
   flex-direction: row;
   align-items: center;
-  width: 80%;
+  width: 75%;
   border: 1px solid ${"black"};
   border-radius: 25px;
   padding: 10px;
+  margin-top: 15px;
 `;
 
 const Flex = styled.View`

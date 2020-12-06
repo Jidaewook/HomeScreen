@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {View, Image, Text, StatusBar, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Button} from "react-native";
 import YoutubePlayer from 'react-native-youtube-iframe';
 import {useNavigation} from '@react-navigation/native';
+import {AntDesign} from '@expo/vector-icons';
 
 
 import Slide from '../component/common/Slide';
@@ -12,6 +13,7 @@ import Count from '../component/common/Count';
 import Desc from '../component/common/Desc';
 import DetailCard from '../component/common/DetailCard';
 import themes from '../config/themes';
+import GoBack from '../component/common/GoBack';
 import {lectureApi, noticeApi} from '../api';
 
 
@@ -63,7 +65,10 @@ const Detail = ({route: {params: {id}}}) => {
     };
 
     return (
-    <>   
+    <>  
+        <GoBack 
+            icon="caretleft"
+        />
         <View
             style={styles.Container}
         >
@@ -224,8 +229,7 @@ const styles = StyleSheet.create({
     ViewContainer : {
         flexDirection: 'row',
         width: '100%',
-        paddingLeft: 20,
-        paddingRight: 20,
+        marginTop: 20,
         alignItems: 'center',
         backgroundColor: '#fff'
     }, 

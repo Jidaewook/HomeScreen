@@ -66,7 +66,7 @@ const Profile = () => {
 
 
     const renderTermService = () => {
-        return (
+    return (
           
         <Modal
             animationType="slide"
@@ -199,7 +199,7 @@ const Profile = () => {
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
-            style={{backgroundColor: 'black'}}
+            style={{backgroundColor: 'white'}}
         >
             <Common>
                 <Container>
@@ -240,6 +240,8 @@ const Profile = () => {
                         onPress={() => {setModal(true)}}
                       />
                     </SettingSection>
+                    <HLine />
+
                     <SettingSection
                       title={"알람설정"}
                       
@@ -254,6 +256,8 @@ const Profile = () => {
                         title={"푸시알림"}
                       />
                     </SettingSection>
+                    <HLine />
+
                     <SettingSection
                       title={"고객센터/도움말"}
                       
@@ -265,6 +269,7 @@ const Profile = () => {
                         onPress={() => alert("MAIL")}
                       />
                     </SettingSection>
+                    <HLine />
 
                     {modal ? (renderTermService()) : (null)}
                 </Container>

@@ -17,7 +17,7 @@ export default () => (
         }}
         initialRouteName="Profile"
     >
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Main" component={Profile} />
         <Stack.Screen name="ProfilePage" component={ProfilePage}  />
         {/* <Stack.Screen name="Account" component={Account} />
         <Stack.Screen name="Agreement" component={Agreement} />

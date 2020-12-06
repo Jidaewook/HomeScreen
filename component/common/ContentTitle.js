@@ -7,9 +7,6 @@ const ContentTitle = ({title, desc, addsize}) => {
 
     const navigation = useNavigation();
 
-    // const goToDetail = () => 
-    // navigation.navigate("detail");
-
     return (
     <>  
     <View
@@ -20,14 +17,7 @@ const ContentTitle = ({title, desc, addsize}) => {
         >
             <Text style={styles.TitleFont} >
                 {title}
-            </Text>
-            {/* <View style={{justifyContent: 'center', flexDirection: 'row'}} >
-                <View style={styles.NoticeView} />
-                <View style={{ fontSize: 15, justifyContent: 'center', alignItems: 'center' }} >
-                    <Text style={{justifyContent: 'center'}}>{desc}</Text>
-                </View>
-            </View> */}
-            
+            </Text>            
         </View>
         <TouchableOpacity
                 style={{alignItems: 'flex-end', paddingRight: 15, width: '20%', justifyContent: 'center'}}
@@ -39,51 +29,6 @@ const ContentTitle = ({title, desc, addsize}) => {
             </TouchableOpacity>
     </View>
 </>
-
-        // <View
-        //         style={{
-        //             flexDirection: 'row',
-        //             width: '100%',
-        //             alignItems: 'center'
-        //         }}
-        //     >
-        //         <Text
-        //             style={{
-        //                 fontWeight: 'bold',
-        //                 fontSize: 18,
-        //                 // 칼라는 테마에 들어가야 한다.
-        //                 color: '#4f4a4a'
-        //             }}    
-        //         >
-        //             NOTICE
-        //         </Text>
-        //             <View
-        //                 style={{
-        //                     width: 5,
-        //                     height: 5,
-        //                     borderRadius: 5,
-        //                     marginHorizontal: 5,
-        //                     backgroundColor: '#4f4a4a',
-        //                     marginLeft: 10
-        //                 }}
-        //             />
-        //             <Text 
-        //                 style={{
-        //                     fontWeight: 'bold',
-        //                     fontSize: 10,
-        //                     color: '#4f4a4a',
-                            
-        //                 }}
-        //             >
-        //                 채용공고
-        //             </Text> 
-        //             <Text
-                        
-        //             >
-        //                 더보기
-        //             </Text>
-        //     </View>
-
     );
 };
 
@@ -113,6 +58,7 @@ const styles = StyleSheet.create({
     },
     TitleFont: {
         fontWeight: 'bold',
+        color: 'gray',
         fontSize: 24
     },
     ContentTitleFont: {

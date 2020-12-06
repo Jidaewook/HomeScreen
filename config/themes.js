@@ -7,7 +7,8 @@ const colors={
     title: '#a8e0d1',
     black: 'black',
     lightgray: 'lightgray',
-    gray: 'gray'
+    gray: 'gray',
+    faintgray: '#f4f4f4'
 }
 
 

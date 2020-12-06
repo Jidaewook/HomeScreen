@@ -47,15 +47,15 @@ export default ({navigation, route}) => {
                 showLabel: false
             }}
         >
-            <Tabs.Screen name="Profile" component={ProfileStack} />
-
-            <Tabs.Screen 
+             <Tabs.Screen 
                 name="Home" 
                 component={Home} 
                 
             />
+
+           
             <Tabs.Screen name="Save" component={Save} />
-            {/* <Tabs.Screen name="Profile" component={Profile} /> */}
+            <Tabs.Screen name="Profile" component={ProfileStack} />
         </Tabs.Navigator>
     )
 }

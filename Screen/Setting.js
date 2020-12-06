@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {ActivityIndicator, View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Switch} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {SimpleLineIcons, Octicons, MaterialCommunityIcons} from '@expo/vector-icons';
+import {SimpleLineIcons, Octicons, MaterialCommunityIcons, Ionicons} from '@expo/vector-icons';
 
 import Title from '../component/common/Title';
 import Category from '../component/common/Category';
@@ -16,6 +16,9 @@ const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 
 
 const Setting = () => {
+
+    const navigation = useNavigation();
+
     return (
     
     <View
@@ -28,16 +31,11 @@ const Setting = () => {
 
         <View style={styles.ViewContainer}>
             <View style={styles.ViewBox}>
-                <Text style={styles.TitleFont}>
-                    Setting
-                </Text>
-            </View>
-            <View style={styles.ViewSetting}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("Setting")}
+                    onPress={() => navigation.goBack()}
                 >
-                    <SimpleLineIcons
-                        name="settings"
+                    <Ionicons
+                        name="ios-arrow-back"
                         size={22}
                         style={{
                             width: 24,
@@ -46,6 +44,11 @@ const Setting = () => {
                         }}                        
                     />
                 </TouchableOpacity>
+            </View>
+            <View style={styles.ViewSetting}>
+                <Text style={styles.TitleFont}>
+                    Setting
+                </Text>
             </View>
         </View>
         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -126,8 +129,9 @@ const styles = StyleSheet.create({
         // backgroundColor: themes.colors.basic
     }, 
     ViewBox: {
-        width: '50%',
-        backgroundColor: themes.colors.view
+        width: '60%',
+        backgroundColor: themes.colors.view,
+        marginLeft: 20
     },
     TitleFont: {
         fontWeight: 'bold',
@@ -141,7 +145,7 @@ const styles = StyleSheet.create({
     },
     ViewSetting: {
         width: '50%',
-        alignItems: 'flex-end'
+        alignItems: 'flex-start'
         // backgroundColor: themes.colors.view
 
     }, 
