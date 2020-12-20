@@ -37,8 +37,8 @@ const Detail = ({route: {params: {id}}}) => {
 
     const getData = async () => {
         const [data, dataError] = await noticeApi.noticeDetail(id)
-        const [ncs, ncsError] = await lectureApi.ncs();
-        const [psat, psatError] = await lectureApi.psat();
+        const [ncs, ncsError] = await lectureApi.ncs(id);
+        const [psat, psatError] = await lectureApi.psat(id);
 
         setLectures({
             loading: false,
@@ -51,7 +51,7 @@ const Detail = ({route: {params: {id}}}) => {
         setResult({
             data, dataError
         })
-        console.log("Result", result.data)
+        console.log("Result+++++++++++++++", result.data)
     }
 
     useEffect(() => {

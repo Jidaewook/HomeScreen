@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {ActivityIndicator ,View, SectionList, StatusBar, ScrollView, Text, Modal, Button, StyleSheet, Switch, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {ActivityIndicator ,View, SectionList, StatusBar, ScrollView, Text, Alert, Modal, Button, StyleSheet, Switch, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
 import {SimpleLineIcons, Octicons, MaterialCommunityIcons} from '@expo/vector-icons';
@@ -8,6 +8,8 @@ import {ListItem, SingleItem, ToggleList} from '../component/common/ListItem';
 import Slide from '../component/common/Slide';
 import ProfilePage from './ProfileDetail/ProfilePage';
 import SettingSection from '../component/common/SettingSection';
+import { AsyncStorage } from 'react-native';
+import axios from 'axios';
 
 const Common = styled.SafeAreaView`
   background-color: white;
@@ -53,17 +55,49 @@ const MenuItem = [
     }
 ]
 
-const Profile = () => {
+const Profile = ({navigation}) => {
 
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
     const ProfilePage = () => {
       navigation.navigate("ProfilePage")
     };
     const [modal, setModal] = useState(false);
+    const [userData, setUserData] = useState({});
 
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+
+
+    const getUserData = async () => {
+
+      const token = await AsyncStorage.getItem('token')
+      const headers = {
+        'Authorization': 'Bearer ' + token
+      }
+      console.log("HEADERS", headers)
+
+
+      try {
+        axios 
+          .get('https://hidden-earth-75958.herokuapp.com/users/me', {headers: headers})
+          .then(data => {
+            setUserData(data.data)
+          })
+          .catch(err => {
+            alert(err)
+          })
+
+      } catch(e) {
+        alert(e)
+      } finally {
+
+      }
+    } 
+
+    useEffect(() => {
+      getUserData();
+    }, {}) 
 
     const renderTermService = () => {
     return (
@@ -208,7 +242,7 @@ const Profile = () => {
                         ListHeaderComponent={
                           
                             <ListItem 
-                                title="JD"
+                                title={userData.username}
                                 subtitle="View Profile"
                                 image={require("../images/13.png")}
                                 onPress={() => {ProfilePage()}}
@@ -268,6 +302,44 @@ const Profile = () => {
                         // 누르면 고객센터페이지
                         onPress={() => alert("MAIL")}
                       />
+                      
+                    </SettingSection>
+                    <HLine />
+
+                    <SettingSection
+                      title={"계정설정"}
+                      
+                    >
+                      <SingleItem   
+                        title={"로그아웃"}
+                        icon={"mail"}
+                        // 누르면 고객센터페이지
+                        onPress={() => 
+                          // console.log("+++++++++"),
+                          Alert.alert(
+                            "로그인 되었습니다.",
+                            "Sub",
+                        [
+                            {
+                                text: "확인",
+                                onPress: () => 
+                                    navigation.navigate("AuthStack")    
+                            },
+                            {
+                                text: "취소"
+                            }
+                        ])
+                      }
+                          // "정말 로그아웃 하시겠습니까?",
+                          // "진짜로?",
+                          // [
+                          //   {
+                          //       text: "확인",
+                          //       onPress={() => navigation.navigate('AuthStack')}
+                          //   }
+                          // ])}
+                      />
+                      
                     </SettingSection>
                     <HLine />
 

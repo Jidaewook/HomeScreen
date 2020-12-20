@@ -30,6 +30,11 @@ export const noticeApi = {
     noticeDetail: id => getAnything(`/notices/${id}`)
 };
 
+export const userApi = {
+    login: () => getAnything("/login"),
+    register: () => getAnything("/register")
+}
+
 // export const bbsApi = {
 //     bbs: () => getAnything("/bbs"),
 //     bbsDetail: id => getAnything(`/bbs/${id}`)

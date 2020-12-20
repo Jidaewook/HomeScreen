@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AppLoading } from "expo";
 import * as Font from "expo-font";
-import { Image } from "react-native";
+import { Image, AsyncStorage } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Asset } from "expo-asset";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import Stack from "./navigation/Stack";
-
+import AuthStack from './navigation/AuthStack';
+import SigninScreen from './Screen/auth/SigninScreen';
 
 const cacheImages = images =>
     images.map(image => {
@@ -21,6 +22,7 @@ const cacheFonts = fonts =>
     fonts.map(font => [Font.loadAsync(font), Font.loadAsync(font)]);
 
 export default function App() {
+    const [isAuth, setIsAuth] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const loadAssets = () => {
         const images = cacheImages([
@@ -31,11 +33,31 @@ export default function App() {
         return Promise.all([...images, ...fonts]);
     };
     const onFinish = () => setIsReady(true);
+
+    useEffect(() => {
+        checkAuth()
+    })
+
+    const checkAuth = () => {
+        if (AsyncStorage.getItem('token')) {
+            setIsAuth(true)
+        } else {
+            setIsAuth(false)
+        }
+    } 
+
     return isReady ? (
         <>
-            <NavigationContainer>
-                <Stack />
-            </NavigationContainer>
+            {isAuth ? ( 
+                <NavigationContainer>
+                    <Stack /> 
+                </NavigationContainer>
+            ) : 
+            (
+                <NavigationContainer>
+                    <AuthStack />
+                </NavigationContainer>
+            )} 
             
         </>
     ) : (

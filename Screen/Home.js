@@ -17,6 +17,7 @@ import ContentTitle from '../component/common/ContentTitle';
 import {H, H4, H1} from '../config/Typography';
 
 import {lectureApi, noticeApi} from '../api';
+import { AsyncStorage } from 'react-native';
 
 
 const Common = styled.SafeAreaView`
@@ -106,18 +107,18 @@ const Home = ({}) => {
 
         setNotices(notice);
 
-        console.log('-----', notice)
+        // console.log('-----', notice)
         setLoading(false);
-
     };
 
     useEffect(() => {
         getData();
+        // console.log("+++++++++++", AsyncStorage.getItem("token"))
     }, []);
 
     const navigation = useNavigation();
     const goToDetail = (id) => {
-        console.log("ID", id)
+        // console.log("ID", id)
         navigation.navigate("Detail", {id})
     };
 
@@ -137,6 +138,7 @@ const Home = ({}) => {
     const renderNCS = ({item, index}) => {
             return (
                 <NcsCard 
+                    onPress={() => goToDetail(item.id)}
                     title={item.title}
                     // src={require('../images/Notice001.png')}
                 />
@@ -146,6 +148,7 @@ const Home = ({}) => {
     const renderNotice = ({item}) => {
         return (
             <NoticeCard 
+                onPress={() => goToDetail(item.id)}
                 name={item.title}
                 desc={item.desc}
                 src={item.thumbnail[0].url}
@@ -156,6 +159,7 @@ const Home = ({}) => {
     const renderPSAT = ({item}) => {
         return (
             <PsatCard 
+                onPress={() => goToDetail(item.id)}
                 name={item.title}
                 desc={item.desc}
                 src={item.thumbnail[0].url}
@@ -173,7 +177,7 @@ const Home = ({}) => {
                     <H1 colors={'gray'}>패스매니저 PassMeNCS</H1>
                 </HeroText>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("Setting")}
+                    onPress={() => navigation.navigate("Profile")}
                     style={{padding: 20, marginLeft: 60}}
                 >
                     <SimpleLineIcons
@@ -233,13 +237,13 @@ const Home = ({}) => {
                             <ContentTitle 
                                 title={"NOTICE"}
                             />
-                            <FlatList 
-                                data={notices}
-                                keyExtractor={(item) => item.id}
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                renderItem={renderNotice}
-                            />
+                                <FlatList 
+                                    data={notices}
+                                    keyExtractor={(item) => item.id}
+                                    horizontal={true}
+                                    showsHorizontalScrollIndicator={false}
+                                    renderItem={renderNotice}
+                                />
                             <ContentTitle 
                                 title={"NCS"}
                             />

@@ -4,7 +4,7 @@ import {apiImage} from '../../api';
 import {useNavigation} from '@react-navigation/native';
 
 
-const NcsCard = ({src, title}) => {
+const NcsCard = ({onPress, src, title}) => {
 
     // const navigation = useNavigation();
 
@@ -12,18 +12,20 @@ const NcsCard = ({src, title}) => {
     // navigation.navigate("Detail");
 
     return (
-        <View style={{
-            flexDirection:"row",
-            height:100,
-            width:240,
-            backgroundColor:"#fff",
-            elevation:2,
-            padding:6,
-            marginVertical:5,
-            marginRight:20,
-            marginLeft:2,
-            borderRadius:10
-        }}> 
+        <TouchableOpacity
+            onPress={onPress}
+            style={{
+                flexDirection:"row",
+                height:100,
+                width:240,
+                backgroundColor:"#fff",
+                elevation:2,
+                padding:6,
+                marginVertical:5,
+                marginRight:20,
+                marginLeft:2,
+                borderRadius:10
+            }}> 
         <View>
             <Image
             //  source={{uri: apiImage(src)}}
@@ -50,7 +52,7 @@ const NcsCard = ({src, title}) => {
                 {title}
             </Text>
         </View>
-    </View>
+    </TouchableOpacity>
     );
 };
 
