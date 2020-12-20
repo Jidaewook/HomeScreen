@@ -46,7 +46,7 @@ export default ({navigation, route}) => {
                 showLabel: false
             }}
         >
-             <Tabs.Screen name="Home" component={Home} />
+            <Tabs.Screen name="Home" component={Home} />
 
             <Tabs.Screen name="Save" component={Save} />
             <Tabs.Screen name="Profile" component={Profile} />

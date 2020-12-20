@@ -177,7 +177,7 @@ const Home = ({}) => {
                     <H1 colors={'gray'}>패스매니저 PassMeNCS</H1>
                 </HeroText>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("Profile")}
+                    onPress={() => navigation.navigate("Setting")}
                     style={{padding: 20, marginLeft: 60}}
                 >
                     <SimpleLineIcons

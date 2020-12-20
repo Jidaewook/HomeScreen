@@ -116,7 +116,7 @@ const ProfileSubTitle = styled.Text`
     font-size: 13px;
     color: ${themes.colors.view};
     align-items: center;
-    width: 30%;
+    width: 50%;
 `;
 
 
@@ -140,7 +140,7 @@ export const ListItem = ({
                 <Container>
                     {image && <Avatar source={image} /> }
                     <ProfileContainerList>
-                        <ProfileTitle>환영합니다. {title} 님</ProfileTitle>
+                        <ProfileTitle>{title} 님</ProfileTitle>
                         {subtitle && (
                             <ProfileSubTitle 
                                 numberOfLines={1}

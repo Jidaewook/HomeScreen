@@ -86,8 +86,8 @@ const ProfilePage = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <ListItem
                     title={userData.username}
-                    // subtitle="View Profile"
-                    image={require("../../assets/splash.png")}
+                    subtitle="환영합니다."
+                    image={require("../../assets/adaptive-icon.png")}
                 />
                 <View style={{ alignSelf: "center" }}>
                     <View style={styles.profileImage}>
