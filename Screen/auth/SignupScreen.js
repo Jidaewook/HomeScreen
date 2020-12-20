@@ -27,20 +27,7 @@ const SignupScreen = ({navigation}) => {
     // 이 함수 세트는 텍스트 인풋에 값이 들어가도록 하는 함수
 
     const textInputChange = (val) => {
-        // if(val.length !== 0){
-        //     setData({
-        //         ...data,
-        //         username: val,
-        //         check_textInputChange: true
-
-        //     });
-        // } else {
-        //     setData({
-        //         ...data,
-        //         username: val,
-        //         check_textInputChange: false
-        //     })
-        // }
+  
     }
 
     const handlePasswordChange = (val) => {
@@ -87,16 +74,7 @@ const SignupScreen = ({navigation}) => {
                     Alert.alert(
                         '호갱님 감사합니다',
                         username,
-                        [   
-                            // {
-                            //     text: 'Ask me later',
-                            //     onPress: () => console.log('Ask me later pressed')
-                            // },
-                            // {
-                            //     text: 'Cancel',
-                            //     onPress: () => console.log('Cancel Pressed'),
-                            //     style: 'cancel'
-                            // },
+                        [  
                             { text: '로그인', onPress: () => navigation.navigate("SigninScreen")}
                         ],
                         { cancelable: false }
@@ -104,7 +82,6 @@ const SignupScreen = ({navigation}) => {
                 }
             })
             .catch(err => {
-                // Alert.alert(err)
                 Alert.alert(err.response.data.error);
             })
         } catch(e) {
@@ -115,14 +92,8 @@ const SignupScreen = ({navigation}) => {
         }
     }
 
-
-    // const check_TextInputChange = () => {
-
-    // }
-
     return (
     
-
         loading ? <View><ActivityIndicator size='large' color='green' /> </View> : (
             <View style={styles.container}>
                         <StatusBar backgroundColor='#009387' barStyle="light-content" />
@@ -168,8 +139,6 @@ const SignupScreen = ({navigation}) => {
                                 : null }
                             </View>
                             
-
-                            
                             <Text style={[styles.text_footer, {
                                 marginTop: 35
                             }]}>E-mail</Text>
@@ -188,27 +157,11 @@ const SignupScreen = ({navigation}) => {
                                     onChangeText={text => (
                                         setEmail(text)
                                     )}
-                                    // onChangeText={(val) => textInputChange(val)}
 
                                 />
-                                {/* {data.check_textInputChange ? 
-                                    <Animatable.View
-                                        animation="bounceIn"
-                                    >
-                                        <Feather 
-                                            name="check-circle"
-                                            color="green"
-                                            size={20}
-                                        />
-                                    </Animatable.View>
-                                : null } */}
+                                
                             </View>
                             
-
-
-
-
-
                             <Text style={[styles.text_footer, {
                                 marginTop: 35
                             }]}>Password</Text>
@@ -228,7 +181,6 @@ const SignupScreen = ({navigation}) => {
                                     onChangeText={text => (
                                         setPassword(text)
                                     )}
-                                    // onChangeText={(val) => handlePasswordChange(val)}
                                 />
                                 <TouchableOpacity
                                     onPress={updateSecureTextEntry}
@@ -251,10 +203,6 @@ const SignupScreen = ({navigation}) => {
                                 </TouchableOpacity>
                             </View>
                             
-
-
-
-
                             <Text style={[styles.text_footer, {
                             }]}>Conrifm Password</Text>
 
@@ -278,21 +226,7 @@ const SignupScreen = ({navigation}) => {
                                 <TouchableOpacity
                                     onPress={updateConfirmSecureTextEntry}
                                 >
-                                    {/* {data.secureTextEntry ? 
-                                        <Feather 
-                                            name="eye-off"
-                                            color="grey"
-                                            size={20}
-                                        />
-                                        :
-                                        <Feather 
-                                            name="eye"
-                                            color="grey"
-                                            size={20}
-                                        />
-
-                                    }  */}
-
+                                 
                                 </TouchableOpacity>
                             </View>
 

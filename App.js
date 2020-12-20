@@ -36,30 +36,22 @@ export default function App() {
 
     useEffect(() => {
         checkAuth()
+        // console.log('TTTTTTTTTTTTT', AsyncStorage.getItem('token'))
     })
 
-    const checkAuth = () => {
+    const checkAuth = async () => {
         if (AsyncStorage.getItem('token')) {
-            setIsAuth(true)
+           await setIsAuth(true)
         } else {
             setIsAuth(false)
         }
     } 
 
     return isReady ? (
-        <>
-            {isAuth ? ( 
-                <NavigationContainer>
-                    <Stack /> 
-                </NavigationContainer>
-            ) : 
-            (
-                <NavigationContainer>
-                    <AuthStack />
-                </NavigationContainer>
-            )} 
-            
-        </>
+        
+        <NavigationContainer>
+            {isAuth ? <Stack /> : <AuthStack />}
+        </NavigationContainer>
     ) : (
         <AppLoading
             startAsync={loadAssets}

@@ -2,7 +2,6 @@ import React from 'react'
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../Screen/Home';
 import Detail from '../Screen/Detail';
-import Setting from '../Screen/Setting';
 import Profile from '../Screen/Profile';
 import AuthStack from '../navigation/AuthStack';
 import Tabs from './Tabs';
@@ -24,7 +23,6 @@ export default () => (
         <Stack.Screen name="Detail" component={Detail} />
         <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="AuthStack" component={AuthStack} />
-        {/* <Stack.Screen name="Noticebbs" component={Setting} /> */}
         {/* <Stack.Screen name="Ncs" component={NcsBbs}  /> */}
         {/* <Stack.Screen name="Psat" component={PsatBbs} /> */}
     </Stack.Navigator>

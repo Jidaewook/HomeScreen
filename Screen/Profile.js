@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {ActivityIndicator ,View, SectionList, StatusBar, ScrollView, Text, Alert, Modal, Button, StyleSheet, Switch, TouchableOpacity} from 'react-native';
+import {ActivityIndicator,  AsyncStorage, View, SectionList, StatusBar, ScrollView, Text, Alert, Modal, Button, StyleSheet, Switch, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components';
 import {SimpleLineIcons, Octicons, MaterialCommunityIcons} from '@expo/vector-icons';
@@ -8,7 +8,6 @@ import {ListItem, SingleItem, ToggleList} from '../component/common/ListItem';
 import Slide from '../component/common/Slide';
 import ProfilePage from './ProfileDetail/ProfilePage';
 import SettingSection from '../component/common/SettingSection';
-import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 
 const Common = styled.SafeAreaView`
@@ -98,6 +97,25 @@ const Profile = ({navigation}) => {
     useEffect(() => {
       getUserData();
     }, {}) 
+
+    const logout =  async () => {
+      await Alert.alert(
+        "로그아웃 하시겠습니까?",
+        "Sub",
+      [
+          {
+              text: "확인",
+              onPress: () => {
+                  AsyncStorage.clear(),
+                  navigation.navigate("AuthStack")
+                  console.log("JJJJJJJJJ", AsyncStorage.getItem('token'))
+              }
+          },
+          {
+              text: "취소"
+          }
+      ])
+    }
 
     const renderTermService = () => {
     return (
@@ -314,30 +332,8 @@ const Profile = ({navigation}) => {
                         title={"로그아웃"}
                         icon={"mail"}
                         // 누르면 고객센터페이지
-                        onPress={() => 
-                          // console.log("+++++++++"),
-                          Alert.alert(
-                            "로그인 되었습니다.",
-                            "Sub",
-                        [
-                            {
-                                text: "확인",
-                                onPress: () => 
-                                    navigation.navigate("AuthStack")    
-                            },
-                            {
-                                text: "취소"
-                            }
-                        ])
-                      }
-                          // "정말 로그아웃 하시겠습니까?",
-                          // "진짜로?",
-                          // [
-                          //   {
-                          //       text: "확인",
-                          //       onPress={() => navigation.navigate('AuthStack')}
-                          //   }
-                          // ])}
+                        onPress={ logout }
+                        
                       />
                       
                     </SettingSection>

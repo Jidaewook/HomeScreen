@@ -1,28 +1,63 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, Alert, AsyncStorage,Text, View, SafeAreaView, Image, ScrollView, TouchableOpacity} from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { useNavigation } from '@react-navigation/native';
-
-import GoBack from '../../component/common/GoBack';
+import {ListItem} from '../../component/common/ListItem';
+import axios from 'axios';
 
 
 const ProfilePage = () => {
-    const state = {
-        image: null
-    };
+    // const state = {
+    //     image: null
+    // };
     
-    const getPermissionAsync = async () => {
-        if (Constants.platform.ios) {
-            const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-            if (status !== 'granted') {
-                alert('Sorry');
-            }
-        }
-    };
+    // const getPermissionAsync = async () => {
+    //     if (Constants.platform.ios) {
+    //         const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    //         if (status !== 'granted') {
+    //             // alert('Sorry');
+    //         }
+    //     }
+    // };
 
+    const [userData, setUserData] = useState({});
+    
+
+    const getUserData = async () => {
+
+        const token = await AsyncStorage.getItem('token')
+
+        const headers = {
+            'Authorization' : 'Bearer ' + token
+        }
+
+
+        try {
+            console.log("rrrrrrr")
+            axios
+                .get('https://hidden-earth-75958.herokuapp.com/users/me', {headers: headers})
+                
+                .then(data => {
+                    setUserData(data.data)
+                    // console.log("DDDDDDDD", data.data.email)
+                })
+                
+                .catch(err => {
+                    console.log("ERREREERERERERERER", err)
+                })
+        } catch(e) {
+            alert(e)
+        } finally {
+
+        }
+    }
+
+    useEffect(() => {
+        getUserData();
+    }, {})
 
     const pickImage = async () => {
         try{
@@ -39,18 +74,20 @@ const ProfilePage = () => {
     };
 
     const navigation = useNavigation();
-    const goToSetting = () => 
-        navigation.navigate("Setting");
     
-    useEffect(() => {
-        getPermissionAsync();
-    }, []);
+    // useEffect(() => {
+    //     getPermissionAsync();
+    //     getUserData();
+    //     // console.log("TOKEN", headers)
+    // }, []);
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <GoBack 
-                    icon={"caretleft"}
+                <ListItem
+                    title={userData.username}
+                    // subtitle="View Profile"
+                    image={require("../../assets/splash.png")}
                 />
                 <View style={{ alignSelf: "center" }}>
                     <View style={styles.profileImage}>
@@ -62,7 +99,7 @@ const ProfilePage = () => {
                     <View style={styles.active}></View>
                     
                     <TouchableOpacity 
-                        onPress={() => pickImage}
+                        // onPress={() => pickImage}
                     >
                         <View style={styles.add}>
                             <Ionicons name="ios-add" size={48} color="#DFD8C8" style={{ marginTop: 6, marginLeft: 2 }}></Ionicons>

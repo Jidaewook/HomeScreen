@@ -23,7 +23,7 @@ const ForgotpasswordScreen = ({navigation}) => {
         setLoading(true);
 
         try {
-            console.log("Starttttt", forgotData)
+            // console.log("Starttttt", forgotData)
             axios
                 .post("https://hidden-earth-75958.herokuapp.com/auth/forgot-password", forgotData)
                 .then(data => {

@@ -130,8 +130,7 @@ export const ListItem = ({
 }) => {
     return (
         <Swipeable
-            renderRightActions={RightActions}
-            
+            renderRightActions={RightActions} 
         >
             <TouchableHighlight
                 underlayColor={themes.colors.view} 
@@ -141,7 +140,7 @@ export const ListItem = ({
                 <Container>
                     {image && <Avatar source={image} /> }
                     <ProfileContainerList>
-                        <ProfileTitle>{title}</ProfileTitle>
+                        <ProfileTitle>환영합니다. {title} 님</ProfileTitle>
                         {subtitle && (
                             <ProfileSubTitle 
                                 numberOfLines={1}
@@ -152,7 +151,6 @@ export const ListItem = ({
                     </ProfileContainerList>
                 </Container>
             </TouchableHighlight>
-
         </Swipeable>
     );
 };
